@@ -1,0 +1,16 @@
+body {
+  font-family: "Helvetica Neue",Arial,"Hiragino Sans GB",STHeiti,"Microsoft YaHei";
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: none;
+  -webkit-transition: -webkit-transform .2s cubic-bezier(.4,.01,.165,.99);
+  transition: transform .2s cubic-bezier(.4,.01,.165,.99),-webkit-transform .2s cubic-bezier(.4,.01,.165,.99);
+}
+
+
+a {
+  color: #00B7FF;
+}

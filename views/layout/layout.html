@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}醉墨T'M{% endblock %}</title>
+    {% block head %}
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="icon" href="/images/favicon.ico">
+    <!--<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/rss.html">-->
+    <meta name="keywords" content="醉墨,bird.jarvis,zuimo,科技,博客,时光机">
+    <meta name="description" content="这是 Steven Guan 的博客。">
+    <link rel="stylesheet" href="/stylesheets/layout.css"/>
+    {% endblock %}
+</head>
+<body>
+    <nav id="sidebar" class="behavior_1">
+        <div class="wrap">
+            <div class="profile">
+                <a href="/">
+                    <img src="/images/logo.png" alt="醉墨的时光机"/>
+                </a>
+                <span>醉墨的时光机</span>
+            </div>
+            <ul class="nav-items">
+                <li>
+                    <a href="/" title="首页">
+                        <i class="iconfont">&#xe603;</i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/" title="归档">
+                        <i class="iconfont">&#xe602;</i>
+                        <span>归档</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/about" title="关于">
+                        <i class="iconfont">&#xe601;</i>
+                        <span>关于</span>
+                    </a>
+                </li>
+                <li><a href="" title="态度"></a></li>
+            </ul>
+            <div class="share">
+                <a class="inline" rel="nofollow" target="_blank" href="http://weibo.com/jarvis86/">
+                    <i class="iconfont" title="weibo">&#xe600;</i>
+                </a>
+                <a class="" href="">
+                    <i class="iconfont">&#xe604;</i>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div id="header">
+        <div class="btn-bar"><i></i></div>
+        <h1>
+            <a href="/">醉墨的时光机</a>
+        </h1>
+        <a href="/about" class="me">
+            <img src="/images/logo.png" alt="醉墨的时光机"/>
+        </a>
+    </div>
+    <div id="main">
+        <footer id="footer">
+            <p>
+                &copy;2014-2018&nbsp;-&nbsp;Jarvis's TimeMachine&nbsp;-&nbsp;
+                <a target="_blank" rel="nofollow" class="external beian" href="http://www.miitbeian.gov.cn/">浙ICP备14023948号</a>
+            </p>
+            <p>
+                <span>Powered&nbsp;by</span>
+                <a href="www.expressjs.com" target="_blank">express</a>
+            </p>
+        </footer>
+    </div>
+    {% block content %}{% endblock %}
+</body>
+</html>
