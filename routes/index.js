@@ -10,5 +10,9 @@ module.exports = function(app) {
   // 关于页面
   app.get('/about', function(req, res) {
     res.render('about', { currentPage: 'about'});
+  });
+
+  app.post('/postArticle', function(req, res) {
+    console.log(req.body);
   })
 };

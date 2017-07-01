@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     minifyCSS =  require('gulp-minify-css');
 
 var DIR = {
-    less: 'public/stylesheets/*.less',
+    less: ['public/stylesheets/**/*.less', '!public/stylesheets/common/*.less'],
     js: 'public/javascripts/*.js'
 };
 

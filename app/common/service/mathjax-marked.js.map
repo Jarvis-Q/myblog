@@ -1,0 +1,51 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/service/mathjax-marked.js"
+    ],
+    "names": [
+        "blockMathRender",
+        "content",
+        "config",
+        "MathJax",
+        "start",
+        "typeset",
+        "math",
+        "format",
+        "svg",
+        "data",
+        "resolve",
+        "inlineMathRender",
+        "text",
+        "reg",
+        "cap",
+        "lastIndex",
+        "exec",
+        "strStart",
+        "index",
+        "strEnd",
+        "length",
+        "mathContent",
+        "substring",
+        "run",
+        "mathLexer",
+        "Lexer",
+        "tokens",
+        "lex",
+        "i",
+        "item",
+        "type",
+        "console",
+        "log",
+        "Parser",
+        "parse",
+        "think",
+        "service",
+        "base"
+    ],
+    "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;;AACA;;;;;;;;;;;;;;AAGE;;;;;;mBAMMA,e;2FAAgBC,O;;;;;AACpB,oCAAQC,MAAR,CAAe;AACbC,yBAAS;AADI,eAAf;AAGA,oCAAQC,KAAR;;qBACa,sBAAY,mBAAW;AAClC,sCAAQC,OAAR,CAAgB;AACdC,wBAAML,OADQ;AAEdM,0BAAQ,KAFM;AAGdC,uBAAK;AAHS,iBAAhB,EAIG,UAAUC,IAAV,EAAgB;AACjBC,0BAAQD,KAAKD,GAAb;AACD,iBAND;AAOD,eARY,C;;;;;;;;;;;;;;;;;;;;AAWf;;;;;;;mBAKMG,gB;6FAAiBC,I;;;;;;AACfC,iB,GAAM,qB;AACRC,iB;;;AAEJD,kBAAIE,SAAJ,GAAgB,CAAhB;;;mBAEOH,I;;;;;AACLE,oBAAMD,IAAIG,IAAJ,CAASJ,IAAT,CAAN;;mBACIE,G;;;;;AACIG,sB,GAAWH,IAAII,K;AACfC,oB,GAASL,IAAII,KAAJ,GAAYJ,IAAI,CAAJ,EAAOM,M;;qBACR,KAAKpB,eAAL,CAAqBc,IAAI,CAAJ,CAArB,C;;;AAApBO,yB;;;AAENT,qBAAOA,KAAKU,SAAL,CAAe,CAAf,EAAkBL,QAAlB,IAA8BI,WAA9B,GAA4CT,KAAKU,SAAL,CAAeH,MAAf,CAAnD;AACAN,kBAAIE,SAAJ,IAAiBM,YAAYD,MAA7B;;;;;;;;;;;;gDAMGR,I;;;;;;;;;;;;;;;;;AAGT;;;;;;;;mBAMMW,G;6FAAItB,O;;;;;;AACJuB,uB,GAAY,IAAI,iBAAOC,KAAX,E;AACZC,oB,GAASF,UAAUG,GAAV,CAAc1B,OAAd,C;AAEJ2B,e,GAAI,C;;;oBAAGA,IAAIF,OAAON,M;;;;;AACnBS,kB,GAAOH,OAAOE,CAAP,C;;AAEb;;oBACIC,KAAKC,IAAL,KAAc,M;;;;;AAChBC,sBAAQC,GAAR,CAAYH,IAAZ;;qBAGc,KAAK7B,eAAL,CAAqB6B,KAAKjB,IAA1B,C;;;;AAFdc,qBAAOE,CAAP,C;AACEE,oB,EAAM,W;AACNlB,oB;;;;AAR6BgB,iB;;;;;gDAa5B,iBAAOK,MAAP,CAAcC,KAAd,CAAoBR,MAApB,C;;;;;;;;;;;;;;;;;;EA1EkBS,MAAMC,OAAN,CAAcC,I",
+    "file": "../../../src/common/service/mathjax-marked.js",
+    "sourcesContent": [
+        "import mathJax from 'mathjax-node';\nimport marked from 'marked';\n\nexport default class extends think.service.base {\n  /**\n   * 渲染具体的 MathJax 表达式\n   *\n   * @param content\n   * @returns {Promise.<*>}\n   */\n  async blockMathRender(content) {\n    mathJax.config({\n      MathJax: {}\n    });\n    mathJax.start();\n    return await new Promise(resolve => {\n      mathJax.typeset({\n        math: content,\n        format: 'TeX',\n        svg: true\n      }, function (data) {\n        resolve(data.svg);\n      });\n    });\n  }\n\n  /**\n   * 渲染行内数学表达式\n   * @param text\n   * @returns {Promise.<*>}\n   */\n  async inlineMathRender(text) {\n    const reg = /(\\$\\$?)([^\\$]+?)\\1/g;\n    let cap;\n\n    reg.lastIndex = 0;\n\n    while (text) {\n      cap = reg.exec(text);\n      if (cap) {\n        const strStart = cap.index;\n        const strEnd = cap.index + cap[0].length;\n        const mathContent = await this.blockMathRender(cap[1]);\n\n        text = text.substring(0, strStart) + mathContent + text.substring(strEnd);\n        reg.lastIndex += mathContent.length;\n      } else {\n        break;\n      }\n    }\n\n    return text;\n  }\n\n  /**\n   * 渲染 Markdown 文本\n   *\n   * @param content\n   * @returns {Promise.<void>}\n   */\n  async run(content) {\n    var mathLexer = new marked.Lexer();\n    var tokens = mathLexer.lex(content);\n\n    for (let i = 0; i < tokens.length; i++) {\n      const item = tokens[i];\n\n      // 处理块级表达式\n      if (item.type === 'math') {\n        console.log(item);\n        tokens[i] = {\n          type: 'paragraph',\n          text: await this.blockMathRender(item.text),\n        }\n      }\n    }\n\n    return marked.Parser.parse(tokens);\n  }\n}\n"
+    ]
+}

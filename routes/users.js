@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+function User(user) {
+  this.name = user.name;
+  this.nickname = user.nickname;
+  this.password = user.password;
+  this.email = user.email;
+}
 
-module.exports = router;
+User.prototype.get = function(name, callback) {
+
+}
+
+module.exports = User;
