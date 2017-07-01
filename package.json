@@ -29,7 +29,10 @@
         "upyun": "^2.0.4",
         "xml2js": "^0.4.16"
     },
-    "repository": "https://github.com/firekylin/firekylin",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:Jarvis-Q/myblog.git"
+    },
     "license": "MIT",
     "pre-commit": [
         "check-extraneous-pkgs",
