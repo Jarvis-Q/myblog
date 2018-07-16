@@ -132,11 +132,9 @@ module.exports = class extends Base {
   async serviceImport(service, file) {
     let ret = {post: 0, page: 0, category: 0, tag: 0};
     try {
-      think.logger.info(`0: ${file.path}, ${service}`);
       const importor = think.service(`import/${service}`, 'admin', this);
-      think.logger.info(`0.1: ok`);
+      think.logger.info(`${importor.run.toString()}`);
       ret = await importor.run(file);
-      think.logger.info(`ending`);
     } catch(e) {
       return this.fail(e);
     }

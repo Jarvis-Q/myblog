@@ -4,6 +4,7 @@ const toMarkdown = require('to-markdown');
 class Base extends think.Service {
   constructor(...args) {
     super(...args);
+    think.logger.info(`4: ${[...args]}`);
     this.userModelInstance = this.model('user', null, 'admin');
     this.cateModelInstance = this.model('cate', null, 'admin');
     this.tagModelInstance = this.model('tag', null, 'admin');
@@ -58,7 +59,7 @@ class Base extends think.Service {
    * 处理上传文件获取导入数据
    */
   async parseFile(file) { // eslint-disable-line no-unused-vars
-
+    think.logger.info(`5: what?`);
   }
 
   async importData(data) {
