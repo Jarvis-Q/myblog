@@ -136,6 +136,7 @@ module.exports = class extends Base {
       const importor = think.service(`import/${service}`, 'admin', this);
       think.logger.info(`0.1: ok`);
       ret = await importor.run(file);
+      think.logger.info(`ending`);
     } catch(e) {
       return this.fail(e);
     }

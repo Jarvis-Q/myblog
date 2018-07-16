@@ -76,10 +76,9 @@ module.epxorts = class extends Base {
   }
 
   parseFile(file) {
+    think.logger.info(`1: ${file.path}`);
     try {
       const filePath = file.path.replace(/[^a-zA-Z0-9./_-]/g, '');
-      // debug;
-      think.logger.info(`1: ${file.path}`);
       execSync(`rm -rf ${PATH}; mkdir ${PATH}; cd ${PATH}; tar zxvf "${filePath}"`);
       think.logger.info(`2: ${PATH}`);
       let files = fs.readdirSync(PATH, {encoding: 'utf-8'});
@@ -113,6 +112,7 @@ module.epxorts = class extends Base {
    * 执行导入
    */
   async run(file) {
+    think.logger.info(`4: ${file.path}`);
     return await this.importData(this.parseFile(file));
   }
 }
